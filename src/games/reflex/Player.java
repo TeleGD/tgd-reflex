@@ -1,16 +1,15 @@
 package games.reflex;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
-
 import java.util.Random;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.state.StateBasedGame;
 
 import app.AppInput;
+import app.AppLoader;
 import app.AppPlayer;
 
 public class Player {
@@ -35,11 +34,7 @@ public class Player {
 		this.controllerID = appPlayer.getControllerID();
 		rand = new Random();
 		pos=1280*(2*i+1)/(2*n);
-		try {
-			image = new Image("images/reflex/p"+rand.nextInt(nbImages)+".png");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
+		image = AppLoader.loadPicture("/images/reflex/p"+rand.nextInt(nbImages)+".png");
 	}
 
 	public void render (GameContainer container, StateBasedGame game, Graphics context) {
@@ -74,7 +69,7 @@ public class Player {
 						next=true;
 					}
 				}
-				
+
 				if (state==World.GOAL) {
 					//victoire
 					fini=true;
@@ -83,11 +78,11 @@ public class Player {
 		}
 
 	}
-	
+
 	public boolean bonBouton(AppInput appInput) {
 		return appInput.isButtonPressed((int) Math.pow(2,bouton.getNumero()),controllerID);
 	}
-	
+
 	public boolean mauvaisBouton(AppInput appInput) {
 		boolean test=false;
 		for (int i=0;i<4;i++) {
@@ -97,5 +92,5 @@ public class Player {
 		}
 		return test;
 	}
-	
+
 }
